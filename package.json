@@ -1,0 +1,23 @@
+{
+  "name": "clouddle-backend",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "repository": "https://github.com/dmosc/clouddle-backend.git",
+  "author": "dmosc <osdavrm@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.mjs",
+    "format": "standard --fix",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "standard": "^17.0.0",
+    "husky": "^7.0.0"
+  }
+}
