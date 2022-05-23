@@ -11,6 +11,7 @@ let dictionary;
 
 const app = express()
 app.use(cors())
+app.use(express.json())
 app.use(async function (req, _, next) {
   req.dictionary = dictionary
   next()
