@@ -2,7 +2,7 @@ import { Router } from 'express'
 
 const rooms = Router()
 
-rooms.get('/', (_, res) => {
+rooms.get('/', (req, res) => {
   res.status(200).json({})
 })
 
