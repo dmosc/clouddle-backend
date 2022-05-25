@@ -83,7 +83,7 @@ class Session {
     const userOrder = this.getUserOrder()
     const prevCurrentUser = this.currentUser
     this.currentUser = (this.currentUser + 1) % userOrder.length
-    if (this.currentUser < prevCurrentUser) {
+    if (this.currentUser <= prevCurrentUser) {
       this.addLap()
     }
   }
