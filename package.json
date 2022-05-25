@@ -6,7 +6,8 @@
   "author": "dmosc <osdavrm@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/index.mjs",
+    "start": "node src/index.mjs",
+    "dev": "nodemon src/index.mjs",
     "format": "standard --fix",
     "prepare": "husky install"
   },
