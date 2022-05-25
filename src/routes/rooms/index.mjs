@@ -12,15 +12,20 @@ rooms.get('/', (req, res) => {
 })
 
 rooms.get('/new', (req, res) => {
+  const io = req.app.get('io')
   const sessionManager = req?.sessionManager
   const session = sessionManager.createSession()
   const user = randomUUID()
   session.addUser(user)
   session.setPrefix(req.dictionary.getRandomPrefix(session.getDifficulty()))
+  res.setHeader('session', session.getId())
+  res.setHeader('user', user)
+  io.emit(session.getId(), session)
   return res.status(200).json({ session: session.printable(), user })
 })
 
 rooms.get('/join/:sessionId', (req, res) => {
+  const io = req.app.get('io')
   const sessionManager = req?.sessionManager
   const session = sessionManager.getSession(req.params.sessionId)
   if (!session) {
@@ -28,6 +33,7 @@ rooms.get('/join/:sessionId', (req, res) => {
   }
   const user = randomUUID()
   session.addUser(user)
+  io.emit(session.getId(), session)
   return res.status(200).json({ session: session.printable(), user })
 })
 

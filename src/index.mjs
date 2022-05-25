@@ -20,6 +20,9 @@ const wsServer = new Server({
   }
 })
 
+// Global variables
+app.set('io', wsServer)
+
 // Middlewares
 app.use(cors())
 app.use(express.json())
@@ -32,13 +35,7 @@ app.use(async function (req, res, next) {
 // Routes
 app.use('/rooms', rooms)
 
-const httpServer = app.listen(serverConfig.httpPort, function () {
-  console.log(`Serving ${process.env.npm_package_name} on port ${serverConfig.httpPort}`)
+const httpServer = app.listen(serverConfig.port, function () {
+  console.log(`Serving ${process.env.npm_package_name} on port ${serverConfig.port}`)
 })
 wsServer.listen(httpServer)
-wsServer.on('connection', function (socket) {
-  socket.on('message', function (payload) {
-    console.log(payload)
-    socket.emit('message', 'hello')
-  })
-})

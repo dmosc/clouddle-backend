@@ -5,8 +5,7 @@ import { fileURLToPath } from 'url'
 dotenv.config()
 const __rootdir = dirname(fileURLToPath(import.meta.url))
 const serverConfig = {
-  httpPort: process.env.HTTP_PORT,
-  wsPort: process.env.WS_PORT
+  port: process.env.PORT
 }
 const appUrl = process.env.APP_URL
 
