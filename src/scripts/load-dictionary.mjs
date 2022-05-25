@@ -1,4 +1,4 @@
-import DictionaryTrie from '../routes/rooms/dictionary.mjs'
+import DictionaryTrie from '../classes/dictionary.mjs'
 import { ALPHABET } from '../constants.mjs'
 import { join } from 'path'
 import { __rootdir } from '../environment.mjs'
