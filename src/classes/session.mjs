@@ -88,7 +88,7 @@ class Session {
     }
   }
 
-  printable() {
+  printable () {
     return {
       ...this,
       usedWords: Array.from(this.getUsedWords())

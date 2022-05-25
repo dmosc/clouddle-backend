@@ -6,15 +6,13 @@ import fs from 'fs'
 
 async function loadDictionary () {
   const dictionaryTrie = new DictionaryTrie()
-  const file = join(__rootdir, 'resources', 'dictionary.txt')
   const readLineInterface = readLine.createInterface({
-    input: fs.createReadStream(file),
+    input: fs.createReadStream(join(__rootdir, 'resources', 'dictionary.txt')),
     output: process.stdout,
     terminal: false
   })
-  for await (const line of readLineInterface) {
-    const [word] = line.split(' ')
-    dictionaryTrie.add(word.replace(/[^A-Za-z]/, '').toLowerCase())
+  for await (const word of readLineInterface) {
+    dictionaryTrie.add(word)
   }
   return dictionaryTrie
 }
