@@ -10,6 +10,7 @@ class Session {
     this.userOrder = []
     this.currentUser = 0
     this.lapCount = 0
+    this.isActive = false
   }
 
   getId () {
@@ -42,6 +43,10 @@ class Session {
 
   getLapCount () {
     return this.lapCount
+  }
+
+  getIsActive () {
+    return this.isActive
   }
 
   isUserTurn (user) {
@@ -93,6 +98,14 @@ class Session {
       ...this,
       usedWords: Array.from(this.getUsedWords())
     }
+  }
+
+  start () {
+    this.isActive = true
+  }
+
+  stop () {
+    this.isActive = false
   }
 }
 

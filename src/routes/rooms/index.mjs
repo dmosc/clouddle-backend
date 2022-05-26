@@ -20,7 +20,7 @@ rooms.get('/new', (req, res) => {
   session.setPrefix(req.dictionary.getRandomPrefix(session.getDifficulty()))
   res.setHeader('session', session.getId())
   res.setHeader('user', user)
-  io.emit(session.getId(), session)
+  io.emit(session.getId(), session.printable())
   return res.status(200).json({ session: session.printable(), user })
 })
 
@@ -33,7 +33,7 @@ rooms.get('/join/:sessionId', (req, res) => {
   }
   const user = randomUUID()
   session.addUser(user)
-  io.emit(session.getId(), session)
+  io.emit(session.getId(), session.printable())
   return res.status(200).json({ session: session.printable(), user })
 })
 
@@ -49,7 +49,16 @@ rooms.use(function (req, res, next) {
   next()
 })
 
+rooms.post('/start', (req, res) => {
+  const io = req.app.get('io')
+  const session = req.session
+  session.start()
+  io.emit(session.getId(), session.printable())
+  return res.status(200).json(session.getPoints())
+})
+
 rooms.post('/turn', (req, res) => {
+  const io = req.app.get('io')
   const user = req.header('user')
   const { word } = req.body
   const session = req.session
@@ -59,8 +68,8 @@ rooms.post('/turn', (req, res) => {
       session.resetLaps()
       session.setPrefix(req.dictionary.getRandomPrefix(session.getDifficulty()))
     }
-    return res.status(200).json(session.getPoints())
   }
+  io.emit(session.getId(), session.printable())
   return res.status(200).json(session.getPoints())
 })
 
