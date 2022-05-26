@@ -11,6 +11,8 @@ class Session {
     this.currentUser = 0
     this.lapCount = 0
     this.isActive = false
+    this.winner = undefined
+    this.pointsToWin = 55000
   }
 
   getId () {
@@ -45,6 +47,10 @@ class Session {
     return this.lapCount
   }
 
+  getPointsToWin () {
+    return this.pointsToWin
+  }
+
   getIsActive () {
     return this.isActive
   }
@@ -69,6 +75,10 @@ class Session {
   addPoints (word, user) {
     this.registerWord(word)
     this.getPoints()[user] += word.length * this.getDifficulty() * 1000
+    if (this.getPoints()[user] >= this.getPointsToWin()) {
+      this.winner = user
+      this.isActive = false
+    }
     this.nextTurn()
   }
 
