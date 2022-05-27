@@ -13,6 +13,7 @@ class Session {
     this.isActive = false
     this.winner = undefined
     this.pointsToWin = 55000
+    this.defaultTurnDuration = 7000
   }
 
   getId () {
@@ -51,10 +52,6 @@ class Session {
     return this.pointsToWin
   }
 
-  getIsActive () {
-    return this.isActive
-  }
-
   isUserTurn (user) {
     return this.getCurrentUser() === user
   }
@@ -77,9 +74,8 @@ class Session {
     this.getPoints()[user] += word.length * this.getDifficulty() * 1000
     if (this.getPoints()[user] >= this.getPointsToWin()) {
       this.winner = user
-      this.isActive = false
+      this.stop()
     }
-    this.nextTurn()
   }
 
   addLap () {

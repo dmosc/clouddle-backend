@@ -64,11 +64,12 @@ rooms.post('/turn', (req, res) => {
   const session = req.session
   if (session.isGuessValid(word, user) && req.dictionary.has(word)) {
     session.addPoints(word, user)
-    if (session.getLapCount() === 2) {
-      session.resetLaps()
-      session.setPrefix(req.dictionary.getRandomPrefix(session.getDifficulty()))
-    }
   }
+  if (session.getLapCount() === 2) {
+    session.resetLaps()
+    session.setPrefix(req.dictionary.getRandomPrefix(session.getDifficulty()))
+  }
+  session.nextTurn()
   io.emit(session.getId(), session.printable())
   return res.status(200).json(session.getPoints())
 })
