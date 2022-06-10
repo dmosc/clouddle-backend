@@ -8,5 +8,9 @@ const serverConfig = {
   port: process.env.PORT
 }
 const appUrl = process.env.APP_URL
+const mongo = {
+  url: process.env.MONGO_URI
+}
+const hashSalt = process.env.HASH_SALT
 
-export { __rootdir, serverConfig, appUrl }
+export { __rootdir, serverConfig, appUrl, mongo, hashSalt }

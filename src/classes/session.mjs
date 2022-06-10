@@ -65,8 +65,10 @@ class Session {
   }
 
   addUser (user) {
-    this.getPoints()[user] = 0
-    this.getUserOrder().push(user)
+    if (!this.getUserOrder().includes(user)) {
+      this.getPoints()[user] = 0
+      this.getUserOrder().push(user)
+    }
   }
 
   addPoints (word, user) {
