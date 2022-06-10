@@ -9,8 +9,7 @@ auth.post('/register', async (req, res) => {
   try {
     await user.save()
     const token = user.generateToken()
-    const maxAge = new Date().getMilliseconds() * 10 * 365 * 24 * 60 * 60; // 10 years
-    res.cookie('cld-token', token, { maxAge })
+    res.cookie('cld-token', token, { sameSite: 'none', secure: true })
     return res.status(200).json({ token })
   } catch (e) {
     return res.status(500).json(e)

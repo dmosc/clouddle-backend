@@ -24,6 +24,7 @@ const wsServer = new Server({
 
 // Global variables
 app.set('io', wsServer)
+app.set('trust proxy', 1)
 
 // Middlewares
 app.use(cors({
@@ -32,7 +33,7 @@ app.use(cors({
   exposedHeaders: ['set-cookie']
 }))
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser({}))
 app.use(async function (req, res, next) {
   req.dictionary = dictionary
   req.sessionManager = sessionManager
