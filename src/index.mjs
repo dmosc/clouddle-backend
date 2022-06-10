@@ -24,7 +24,6 @@ const wsServer = new Server({
 
 // Global variables
 app.set('io', wsServer)
-app.set('trust proxy', 1)
 
 // Middlewares
 app.use(cors({
