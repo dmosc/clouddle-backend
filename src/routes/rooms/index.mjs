@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import jwt from 'jsonwebtoken'
 import { hashSalt } from '../../environment.mjs'
+import models from '../../database/models/index.mjs'
 
 const rooms = Router()
 
@@ -82,13 +83,19 @@ rooms.post('/start', (req, res) => {
   return res.status(200).json(session.getPoints())
 })
 
-rooms.post('/turn', (req, res) => {
+rooms.post('/turn', async (req, res) => {
   const io = req.app.get('io')
   const user = req.username
   const { word } = req.body
   const session = req.session
   if (session.isGuessValid(word, user) && req.dictionary.has(word)) {
     session.addPoints(word, user)
+    if (session.isOver()) {
+      const sessionToSave = new models.Session(session.modelFormat())
+      await sessionToSave.save()
+      io.emit(session.getId(), session.printable())
+      return res.status(200).json(session.getPoints())
+    }
   }
   if (session.getLapCount() === 2) {
     session.resetLaps()

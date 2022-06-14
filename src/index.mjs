@@ -2,7 +2,7 @@ import express from 'express'
 import { Server } from 'socket.io'
 import cors from 'cors'
 import { appUrl, serverConfig } from './environment.mjs'
-import { auth, rooms } from './routes/index.mjs'
+import { auth, rooms, sessions } from './routes/index.mjs'
 import loadDictionary from './scripts/load-dictionary.mjs'
 import SessionManager from './classes/session-manager.mjs'
 import connectDatabase from './database/connect.mjs'
@@ -42,6 +42,7 @@ app.use(async function (req, res, next) {
 // Routes
 app.use('/auth', auth)
 app.use('/rooms', rooms)
+app.use('/sessions', sessions)
 
 const httpServer = app.listen(serverConfig.port, async function () {
   console.log(`Serving ${process.env.npm_package_name} on port ${serverConfig.port}`)

@@ -108,12 +108,24 @@ class Session {
     }
   }
 
+  modelFormat () {
+    return {
+      winner: this.winner,
+      points: this.getPoints(),
+      words: Array.from(this.getUsedWords())
+    }
+  }
+
   start () {
     this.isActive = true
   }
 
   stop () {
     this.isActive = false
+  }
+
+  isOver () {
+    return !!this.winner
   }
 }
 
